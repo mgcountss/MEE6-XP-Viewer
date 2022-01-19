@@ -30,7 +30,7 @@ function run() {
                 visibility: visible;
               }`;
     appendStyle(styles)
-    fetch(`https://mee6.xyz/api/plugins/levels/leaderboard/736996801638563921`)
+    fetch('https://mee6.xyz/api/plugins/levels/leaderboard/'+document.URL.split('/leaderboard/')[1]'')
         .then(response => {
             return response.json()
         })
