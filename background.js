@@ -42,8 +42,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			return (100 * partialValue) / totalValue;
 		 } 
 		 function abbreviateNumber(value) {
+			if (value < 1000) {
+		  return value
+			} else {
 			let newValue = value;
-			const suffixes = ["", "K", "M", "B","T"];
+			const suffixes = ["", "K", "M", "B", "T"];
 			let suffixNum = 0;
 			while (newValue >= 1000) {
 			  newValue /= 1000;
@@ -52,6 +55,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			newValue = newValue.toFixed(1);
 			newValue += suffixes[suffixNum];
 			return newValue;
+			}
 		  }
 		  `;
 			chrome.tabs.executeScript(tab.id, { code: code });
@@ -77,8 +81,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 					}
 				})
 				function abbreviateNumber(value) {
+					if (value < 1000) {
+				  return value
+					} else {
 					let newValue = value;
-					const suffixes = ["", "K", "M", "B","T"];
+					const suffixes = ["", "K", "M", "B", "T"];
 					let suffixNum = 0;
 					while (newValue >= 1000) {
 					  newValue /= 1000;
@@ -87,6 +94,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 					newValue = newValue.toFixed(1);
 					newValue += suffixes[suffixNum];
 					return newValue;
+					}
 				  }
 				function addCommas(count) {
 				  return count.toLocaleString("en-US");

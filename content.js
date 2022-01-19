@@ -36,8 +36,18 @@ function run() {
     })
     .then(data => {
       for (let q = 1; q < 100; q++) {
-        let newHTML1 = '<span class="tooltiptext">' + data.players[q - 1].message_count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
-        let newHTML2 = '<span class="tooltiptext">' + data.players[q - 1].xp.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+        let newHTML1 = ""
+        let newHTML2 = ""
+        if (data.players[q - 1].message_count < 1000) {
+          newHTML1 = '<span class="tooltiptext">' + data.players[q - 1].message_count + '</span>'
+        } else {
+          newHTML1 = '<span class="tooltiptext">' + data.players[q - 1].message_count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+        }
+        if (data.players[q - 1].message_count < 1000) {
+          newHTML2 = '<span class="tooltiptext">' + data.players[q - 1].xp + '</span>'
+        } else {
+          newHTML2 = '<span class="tooltiptext">' + data.players[q - 1].xp.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+        }
         document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1)").innerHTML += newHTML1
         document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2)").innerHTML += newHTML2
         document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1) > div.leaderboardPlayerStatValue").innerHTML = abbreviateNumber(data.players[q - 1].message_count)
@@ -54,6 +64,9 @@ let a = setInterval(() => {
 }, 100);
 
 function abbreviateNumber(value) {
+  if (value < 1000) {
+return value
+  } else {
   let newValue = value;
   const suffixes = ["", "K", "M", "B", "T"];
   let suffixNum = 0;
@@ -64,6 +77,7 @@ function abbreviateNumber(value) {
   newValue = newValue.toFixed(1);
   newValue += suffixes[suffixNum];
   return newValue;
+  }
 }
 
 function progress(partialValue, totalValue) {
