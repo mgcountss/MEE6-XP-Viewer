@@ -26,8 +26,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		  })
 		  .then(data => {
 			  for (let q = 1; q < 100; q++) {
-				let newHTML1 = '<span class="tooltiptext">' + data.players[q - 1].message_count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
-				let newHTML2 = '<span class="tooltiptext">' + data.players[q - 1].xp.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+				let newHTML1 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].message_count) + '</span>'
+				let newHTML2 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].xp) + '</span>'
 				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1)").innerHTML += newHTML1
 				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2)").innerHTML += newHTML2
 				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1) > div.leaderboardPlayerStatValue").innerHTML = abbreviateNumber(data.players[q - 1].message_count)
@@ -67,8 +67,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 				})
 				.then(data => {
 					for (let q = 1; q < 100; q++) {
-						let newHTML1 = '<span class="tooltiptext">' + data.players[q - 1].message_count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
-						let newHTML2 = '<span class="tooltiptext">' + data.players[q - 1].xp.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+						let newHTML1 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].message_count) + '</span>'
+						let newHTML2 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].xp) + '</span>'
 						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1)").innerHTML += newHTML1
 						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2)").innerHTML += newHTML2
 						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1) > div.leaderboardPlayerStatValue").innerHTML = abbreviateNumber(data.players[q - 1].message_count)
