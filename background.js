@@ -20,20 +20,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.message === "hi") {
 		chrome.tabs.getSelected(null, function (tab) {
 			var code = `
-    fetch('https://mee6.xyz/api/plugins/levels/leaderboard/'+document.URL.split('/leaderboard/')[1]'')
+    fetch('https://mee6.xyz/api/plugins/levels/leaderboard/'+document.URL.split('/leaderboard/')[1]+'')
 		  .then(response => {
 			  return response.json()
 		  })
 		  .then(data => {
 			  for (let q = 1; q < 100; q++) {
-				  let newHTML1 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].message_count) + '</span>'
-				  let newHTML2 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].xp) + '</span>'
-				  document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1)").innerHTML += newHTML1
-				  document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2)").innerHTML += newHTML2
-				  document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1) > div.leaderboardPlayerStatValue") = abbreviateNumber(data.players[q - 1].message_count)
-				  document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2) > div.leaderboardPlayerStatValue") = abbreviateNumber(data.players[q - 1].xp)
-				  document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div.leaderboardPlayerStat").classList = "leaderboardPlayerStat p"+progress(data.players[q - 1].detailed_xp[0],data.players[q - 1].detailed_xp[1])+""
-				  document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(1) > div.leaderboardPlayer > div.leaderboardPlayerStats > div.leaderboardPlayerStat.p99 > div.leaderboardPlayerStatText > div.leaderboardPlayerStatValue").innerHTML = data.players[q - 1].level
+				let newHTML1 = '<span class="tooltiptext">' + data.players[q - 1].message_count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+				let newHTML2 = '<span class="tooltiptext">' + data.players[q - 1].xp.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1)").innerHTML += newHTML1
+				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2)").innerHTML += newHTML2
+				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1) > div.leaderboardPlayerStatValue").innerHTML = abbreviateNumber(data.players[q - 1].message_count)
+				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2) > div.leaderboardPlayerStatValue").innerHTML = abbreviateNumber(data.players[q - 1].xp)
+				document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div.leaderboardPlayerStat").classList = "leaderboardPlayerStat p" + Math.floor(progress(data.players[q - 1].detailed_xp[0], data.players[q - 1].detailed_xp[1])) + ""
 				}
 		  })
 		  function addCommas(count) {
@@ -50,7 +49,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			  newValue /= 1000;
 			  suffixNum++;
 			}
-			newValue = newValue.toPrecision(3);
+			newValue = newValue.toFixed(1);
 			newValue += suffixes[suffixNum];
 			return newValue;
 		  }
@@ -62,20 +61,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.message === "start") {
 		chrome.tabs.getSelected(null, function (tab) {
 			var code = `
-    fetch('https://mee6.xyz/api/plugins/levels/leaderboard/'+document.URL.split('/leaderboard/')[1]'')
+    fetch('https://mee6.xyz/api/plugins/levels/leaderboard/'+document.URL.split('/leaderboard/')[1]+'')
 				.then(response => {
 					return response.json()
 				})
 				.then(data => {
 					for (let q = 1; q < 100; q++) {
-						let newHTML1 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].message_count) + '</span>'
-						let newHTML2 = '<span class="tooltiptext">' + addCommas(data.players[q - 1].xp) + '</span>'
+						let newHTML1 = '<span class="tooltiptext">' + data.players[q - 1].message_count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
+						let newHTML2 = '<span class="tooltiptext">' + data.players[q - 1].xp.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</span>'
 						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1)").innerHTML += newHTML1
 						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2)").innerHTML += newHTML2
-						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1) > div.leaderboardPlayerStatValue") = abbreviateNumber(data.players[q - 1].message_count)
-						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2) > div.leaderboardPlayerStatValue") = abbreviateNumber(data.players[q - 1].xp)
-						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div.leaderboardPlayerStat").classList = "leaderboardPlayerStat p"+progress(data.players[q - 1].detailed_xp[0],data.players[q - 1].detailed_xp[1])+""
-						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(1) > div.leaderboardPlayer > div.leaderboardPlayerStats > div.leaderboardPlayerStat.p99 > div.leaderboardPlayerStatText > div.leaderboardPlayerStatValue").innerHTML = data.players[q - 1].level
+						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(1) > div.leaderboardPlayerStatValue").innerHTML = abbreviateNumber(data.players[q - 1].message_count)
+						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div:nth-child(2) > div.leaderboardPlayerStatValue").innerHTML = abbreviateNumber(data.players[q - 1].xp)
+						document.querySelector("#app-mount > div > div > div.leaderboardBody > div.leaderboardPlayersListContainer > div > div > div:nth-child(" + q + ") > div.leaderboardPlayer > div.leaderboardPlayerStats > div.leaderboardPlayerStat").classList = "leaderboardPlayerStat p" + Math.floor(progress(data.players[q - 1].detailed_xp[0], data.players[q - 1].detailed_xp[1])) + ""
 					}
 				})
 				function abbreviateNumber(value) {
@@ -86,7 +84,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 					  newValue /= 1000;
 					  suffixNum++;
 					}
-					newValue = newValue.toPrecision(3);
+					newValue = newValue.toFixed(1);
 					newValue += suffixes[suffixNum];
 					return newValue;
 				  }
