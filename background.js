@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.message === "hi") {
 		chrome.tabs.getSelected(null, function (tab) {
 			var code = `
-		  fetch("https://mee6.xyz/api/plugins/levels/leaderboard/736996801638563921")
+    fetch('https://mee6.xyz/api/plugins/levels/leaderboard/'+document.URL.split('/leaderboard/')[1]'')
 		  .then(response => {
 			  return response.json()
 		  })
@@ -62,7 +62,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.message === "start") {
 		chrome.tabs.getSelected(null, function (tab) {
 			var code = `
-				fetch("https://mee6.xyz/api/plugins/levels/leaderboard/736996801638563921")
+    fetch('https://mee6.xyz/api/plugins/levels/leaderboard/'+document.URL.split('/leaderboard/')[1]'')
 				.then(response => {
 					return response.json()
 				})
