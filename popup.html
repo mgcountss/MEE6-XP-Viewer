@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base target="_parent">
+  <meta content="text/html; charset=utf-8" />
+  <title>MEE6 XP Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #cc2929;
+      --accent: #581111;
+      --background: #111;
+      --secondary: #272727;
+      --tertiary: #424242;
+      --lightGrey: #999;
+      --white: #fff;
+    }
+
+    html,
+    body {
+      background-color: var(--background);
+      color: var(--white);
+      min-width: 300px;
+      padding: 0.5em;
+      font-family: "Roboto", Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: 26px;
+    }
+
+    button {
+      color: var(--white);
+      background: var(--secondary);
+      cursor: pointer;
+      padding: 5px 16px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: 0.4s;
+    }
+
+    button:hover {
+      background: #444;
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <h1 id="reload" style="margin-top: 0px;">MEE6 XP Viewer</h1>
+    <button id="button">Reload counts.</button>
+  </br>
+  <h2 id="check">Auto Update Counts: Disabled</h2>
+  <h2 style="font-size: 15px; margin-top: -5px;">(must leave this menu open)</h2>
+  <button id="auto">Enable</button>
+  </center>
+</body>
+<script src="popup.js"></script>
+</html>
