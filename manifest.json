@@ -2,20 +2,19 @@
   "name": "MEE6 Xp Viewer",
   "description": "Shows a user's full number of xp on the MEE6 discord bot's website.",
   "version": "1.0",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "icons": {
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "browser_action": {
-    "default_icon": {},
-		"default_title": "Refresh Stats",
-		"default_popup": "popup.html"
-	},
+  "action": {
+    "default_title": "Refresh Stats",
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": [
-        "https://mee6.xyz/leaderboard*"
+        "https://mee6.xyz/en/leaderboard*"
       ],
       "js": [
         "content.js"
@@ -23,8 +22,9 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
-  "permissions": ["activeTab", "storage", "tabs", "http://*/", "https://*/"]
+  "host_permissions": [
+    "*://*/*"
+  ]
 }
